@@ -1,10 +1,9 @@
-package br.com.cmsystems.trabalho031;
+package br.com.cmsystems.thelastone;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -22,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Claudio on 31/05/2017.
  */
 
-public class GerenciarProdutoActivity extends AppCompatActivity {
+public class GerenciarProdutoActivity extends Activity {
 
     private TextView txtNome = null;
     private TextView txtDescricao = null;
@@ -71,6 +70,18 @@ public class GerenciarProdutoActivity extends AppCompatActivity {
         LojaAPI api = retrofit.create(LojaAPI.class);
         if (mProduto.getId() == 0) {
             api.inserirProduto(mProduto).enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    mLocalManager.sendBroadcast(new Intent(filter));
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    Log.i(GerenciarProdutoActivity.class.getCanonicalName(), t.toString());
+                }
+            });
+        } else {
+            api.atualizarProduto(mProduto).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     mLocalManager.sendBroadcast(new Intent(filter));

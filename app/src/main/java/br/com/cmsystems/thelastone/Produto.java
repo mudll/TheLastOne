@@ -1,10 +1,12 @@
-package br.com.cmsystems.trabalho031;
+package br.com.cmsystems.thelastone;
+
+import java.io.Serializable;
 
 /**
  * Created by Claudio on 31/05/2017.
  */
 
-public class Produto {
+public class Produto implements Serializable{
 
     private int id;
     private String nome;

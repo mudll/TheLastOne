@@ -1,4 +1,4 @@
-package br.com.cmsystems.trabalho031;
+package br.com.cmsystems.thelastone;
 
 import org.junit.Test;
 
